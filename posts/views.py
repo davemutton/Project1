@@ -20,11 +20,16 @@ def post_detail(request, year, month, day, post):
 #[18:27] <mcspud> And then once that works, experiment with .get()
 
 def post_create(request):
-    post_form = PostForm()
-    category_form = CategoryForm()
-    
-    if request.method == 'POST':
-        print (request.POST)
+    post_form = PostForm(request.POST or None)
+    category_form = CategoryForm(request.POST or None)
+    if post_form.is_valid() and post_form.is_valid():
+        instance = post_form.save(commit=False)
+        instance.save()
+
+    category_form = CategoryForm(request.POST or None)
+    if category_from.is_valid():
+        instance = category_form.save(commit=False)
+        instance.save()
 
     context = {'post_form':post_form, 'category_form':category_form}
     return render(request, 'posts/post_form.html', context)
