@@ -1,5 +1,5 @@
 <!--DOCTYPE html -->
-
+    
 <html>
     <head>
     </head>
@@ -8,15 +8,14 @@
     <body>
         <form method='POST'>{% csrf_token %}
         <h1>Form</h1>
-
-        {{ post_form.as_p }} {{ category_form.as_p }}
+        {{ category_form.as_p }}
+        {{ post_form.as_p }} 
+        <input type='submit' value='Create Category' />
         <input type='submit' value='Create Post' />
         
         </form>
     </body>
 
 </html> 
-
-
 
 

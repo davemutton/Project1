@@ -9,13 +9,18 @@ class PostForm(forms.ModelForm):
                 'body',
                 'publish',
                 'status',
+                'categories',
+            
                 ]
-
 
 class CategoryForm(forms.ModelForm):
     class Meta:
         model   = Category
         fields  = [
                 'category_name',
+                'category_slug',
                 ]
 
+
+    
+    

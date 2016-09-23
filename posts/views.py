@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .forms import PostForm, CategoryForm
 from .models import Post, Category
-
+from django.http import HttpResponseRedirect
 
 def post_list(request):
     queryset = Post.objects.all()
@@ -16,21 +16,15 @@ def post_detail(request, year, month, day, post):
                                        publish__day    = day)
     return render(request, 'posts/post_detail.html', {'post':instance})
 
-# - I would change line 124 to this: post = Post.objects.last(), just to make sure you can get any value
-#[18:27] <mcspud> And then once that works, experiment with .get()
-
 def post_create(request):
+    category_form = CategoryForm(request.POST or None)
     post_form = PostForm(request.POST or None)
-    category_form = CategoryForm(request.POST or None)
-    if post_form.is_valid() and post_form.is_valid():
-        instance = post_form.save(commit=False)
-        instance.save()
-
-    category_form = CategoryForm(request.POST or None)
-    if category_from.is_valid():
-        instance = category_form.save(commit=False)
-        instance.save()
-
+    if category_form.is_valid(): 
+        category_form_instance = category_form.save(commit=False)
+      
+    # if post_form.is_valid():         
+    #     post_form_instance = post_form.save()
+        
     context = {'post_form':post_form, 'category_form':category_form}
     return render(request, 'posts/post_form.html', context)
 
@@ -39,5 +33,4 @@ def post_update(request):
 
 def post_delete(request):
     return HttpResponse('post delete')
-
-
+    
